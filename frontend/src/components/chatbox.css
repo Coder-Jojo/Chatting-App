@@ -1,0 +1,13 @@
+/* .topbar{
+    height: 10%;
+} */
+
+.textArea {
+    width: 100%;
+}
+
+.msg{
+    height: 70vh;
+    /* overflow: scroll;
+    overflow-x: hidden; */
+}
