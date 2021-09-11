@@ -1,7 +1,6 @@
 import React from 'react'
 import {Box} from '@material-ui/core'
-import MessageLeft from './MessageLeft'
-import MessageRight from './MessageRight'
+import { MessageLeft, MessageRight } from './'
 
 const Messages = ({message, own}) => {
     return (

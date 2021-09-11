@@ -1,13 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {Container, Grid} from '@material-ui/core'
 import queryString from 'query-string'
-import end from './end'
-import axios from 'axios'
 import {io} from 'socket.io-client'
-
-import Chatbox from './Chatbox' 
-import Online from './Online'
-import Chats from './Chats'
+import{Chatbox, Online, Chats, axios} from './'
 
 let socket
 
@@ -42,7 +37,7 @@ const ChatArea = ({location}) => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const res = await axios.get(end + '/user/' + user)
+                const res = await axios.get('/user/' + user)
                 setMe(res.data)
             } catch (err) {
                 console.error(err)

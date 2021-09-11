@@ -3,9 +3,7 @@ import {Box, Paper, Typography, IconButton, TextField} from '@material-ui/core'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import SendIcon from '@material-ui/icons/Send';
 import './chatbox.css'
-import Messages from './Messages';
-import end from './end'
-import axios from 'axios'
+import {Messages, axios} from './'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
@@ -21,7 +19,7 @@ const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
         const getMessages = async() => {
             if(currentChat === null) return
             try {
-                const messages = await axios.get(end + '/messages/' + currentChat._id)
+                const messages = await axios.get('/messages/' + currentChat._id)
                 setMessages(messages.data)
                 // console.log(messages.data)
             } catch (error) {
@@ -50,7 +48,7 @@ const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
         })
 
         try {
-            const res = await axios.post(end + '/messages', message);
+            const res = await axios.post('/messages', message);
             setMessages([...messages, res.data])
             setNewMessage("")
             // console.log(res)
@@ -81,7 +79,7 @@ const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
 
         const findChatName = async () => {
             try {
-                const name = await axios.get(end + '/user/find/' + receiverId)
+                const name = await axios.get('/user/find/' + receiverId)
                 // console.log(name)
                 setChatName(name.data.username)
             } catch (error) {
