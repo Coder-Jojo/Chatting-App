@@ -1,9 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navbar from './components/Navbar'
-import ChatArea from './components/ChatArea'
-import Join from './components/Join'
 
+import {Navbar, ChatArea, Join} from './components'
 
 const App = () => {
   
