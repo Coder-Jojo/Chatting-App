@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from 'react'
-import {Box, Paper, Typography, IconButton, TextField} from '@material-ui/core'
+import {Box, Paper, Typography, IconButton, TextField, Button} from '@material-ui/core'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import SendIcon from '@material-ui/icons/Send';
 import './chatbox.css'
 import {Messages, axios} from './'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies()
 
 const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
 
@@ -14,6 +18,13 @@ const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
 
     // console.log(user)
     // console.log(socket?.id)
+
+    const handleLogout = (e) => {
+        e.preventDefault()
+        cookies.remove('token')
+        cookies.remove('username')
+        window.location.reload()
+    }
 
     useEffect(() =>{
         const getMessages = async() => {
@@ -95,15 +106,25 @@ const Chatbox = ({currentChat, setCurrentChat, user, socket}) => {
         <div>
 
             <Box height="100vh" className="d-flex flex-column">
-                <Paper className="topbar bg-primary d-flex">
-                    <a href='/'>
-                        <IconButton aria-label="back">
-                            <ArrowBackIcon fontSize='large' />
-                        </IconButton>
-                    </a>
-                    <Typography variant='h4' className="text-center font-weight-bold text-light p-2 "> 
-                        {chatName? chatName.toUpperCase() : "CHAT"}
-                    </Typography>
+                <Paper className="topbar bg-primary d-flex justify-content-between">
+                    <div className="d-flex">
+                        <a href='/'>
+                            <IconButton aria-label="back">
+                                <ArrowBackIcon fontSize='large' />
+                            </IconButton>
+                        </a>
+                        <Typography variant='h4' className="text-center font-weight-bold text-light p-2 "> 
+                            {chatName? chatName.toUpperCase() : "CHAT"}
+                        </Typography>
+                    </div>
+                
+                    <Button onClick={handleLogout} className="d-flex">
+                        <Typography variant='h5' className="text-center font-weight-bold text-light p-2 "> 
+                            Log out
+                        </Typography>
+                        <ExitToAppIcon fontSize="large" />
+                    </Button>
+                    
                 </Paper>
 
                     <ScrollToBottom initialScrollBehavior="smooth"  className="msg">

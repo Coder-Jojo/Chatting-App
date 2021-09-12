@@ -86,6 +86,24 @@ router.post("/login", async (req, res) => {
 
 });
 
+router.get('/user/:username', async (req, res) => {
+
+    const username = req.params.username;
+
+    try {
+        const exist = await Auth.findOne({ username: username})
+        
+        if(exist === null){
+            res.status(200).json({value: false})
+        }
+        else{
+            res.status(200).json({value: true})
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 
 module.exports = {router, authenticateToken}
