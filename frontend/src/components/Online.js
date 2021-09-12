@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {List, ListItem, ListItemText, Avatar, Badge, ListItemAvatar, Typography, Divider} from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import axios from 'axios';
-import end from './end'
+import {axios} from './'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +54,7 @@ const Online = ({onlineUsers, currentUserId, setCurrentChat}) => {
 
       const getAllUsers = async () => {
         try {
-          const users = await axios.get(end + '/user')
+          const users = await axios.get('/user')
           setOnline(users.data.filter(user => user._id !== currentUserId && onlineUsers.includes(user._id)))
           
         } catch (error) {
@@ -73,7 +72,7 @@ const Online = ({onlineUsers, currentUserId, setCurrentChat}) => {
     const handleClick = async (receiverId) => {
       // console.log(key, currentUserId)
       try {
-        const convo = await axios.get(end + `/conversations/find/${receiverId}/${currentUserId}`)
+        const convo = await axios.get(`/conversations/find/${receiverId}/${currentUserId}`)
         // console.log(convo)
         setCurrentChat(convo.data)
       } catch (error) {

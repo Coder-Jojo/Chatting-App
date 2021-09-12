@@ -2,11 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {TextField, Link, Tooltip, Fab} from '@material-ui/core'
 import {Autocomplete} from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios'
-import end from './end'
 import AddIcon from '@material-ui/icons/Add';
-
-import Chat from './Chat'
+import {Chat, axios} from './'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,7 +28,7 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
     useEffect(() =>{
         const getConversations = async () => {
             try {
-                const res = await axios.get(end + '/conversations/' + user._id)
+                const res = await axios.get('/conversations/' + user._id)
                 setConversations(res.data)
                 // console.log(conversations)
             }
@@ -42,7 +39,7 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
 
         const getUser = async () => {
             try {
-                const res = await axios.get(end + '/user/' + userName)
+                const res = await axios.get('/user/' + userName)
                 setUser(res.data)
             } catch (err) {
                 console.error(err)
@@ -51,7 +48,7 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
 
         const getAllUsers = async () => {
             try {
-                const users = await axios.get(end + '/user')
+                const users = await axios.get('/user')
                 // console.log(users)
                 setAllUsers(users.data)
             } catch (error) {
@@ -74,7 +71,7 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
 
         try {
             console.log(userName)
-            const newConvo = await axios.get(end + '/conversations/find/' + memberId._id + '/' + user._id)
+            const newConvo = await axios.get('/conversations/find/' + memberId._id + '/' + user._id)
             const checkExist = conversations.find(conversation => conversation._id === newConvo.data._id)
             // console.log(newConvo)
             // console.log(conversations)

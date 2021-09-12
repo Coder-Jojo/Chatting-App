@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const conversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 const users = require("./routes/users");
+const auth = require("./routes/auth").router;
 const socketio = require('socket.io')
 const cors = require("cors");
 const http = require('http');
@@ -22,9 +23,13 @@ mongoose.connect(
 app.use(express.json());
 app.use(cors());
 
+
+app.use('/api/auth', auth)
+app.use(require('./routes/auth').authenticateToken)
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use('/api/user', users)
+
 
 app.use('/', (req, res) =>{
     res.send('server is running!!!!!')

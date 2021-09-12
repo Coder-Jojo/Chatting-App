@@ -1,26 +1,23 @@
 import React, {useState, useEffect} from 'react'
 import {Container, Grid} from '@material-ui/core'
-import queryString from 'query-string'
-import end from './end'
-import axios from 'axios'
 import {io} from 'socket.io-client'
-
-import Chatbox from './Chatbox' 
-import Online from './Online'
-import Chats from './Chats'
+import{Chatbox, Online, Chats, axios} from './'
+import Cookies from 'universal-cookie'
 
 let socket
+const cookies = new Cookies()
 
 const ChatArea = ({location}) => {
-    const {user} = queryString.parse(location.search)
+    // const {user} = queryString.parse(location.search)
+    const user = cookies?.get('username')
 
     const [currentChat, setCurrentChat] = useState(null)
     const [me, setMe] = useState({})
     const [onlineUsers, setOnlineUsers] = useState([])
     // const [socket, setSocket] = useState(null)
 
-    // const endpoint = 'http://localhost:5000'
-    const endpoint = 'https://jojo-chatting.herokuapp.com'
+    const endpoint = 'http://localhost:5000'
+    // const endpoint = 'https://jojo-chatting.herokuapp.com'
 
     useEffect(() => {
 
@@ -37,12 +34,12 @@ const ChatArea = ({location}) => {
         socket.off()
         }
 
-    }, [location.search, endpoint])
+    }, [endpoint])
     
     useEffect(() => {
         const getUser = async () => {
             try {
-                const res = await axios.get(end + '/user/' + user)
+                const res = await axios.get('/user/' + user)
                 setMe(res.data)
             } catch (err) {
                 console.error(err)

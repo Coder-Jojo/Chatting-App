@@ -1,20 +1,21 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navbar from './components/Navbar'
-import ChatArea from './components/ChatArea'
-import Join from './components/Join'
+import {ChatArea, Auth} from './components'
 
+import Cookies from 'universal-cookie'
+
+const cookies = new Cookies()
+
+const authToken = cookies?.get('token')
 
 const App = () => {
-  
+
+  if(!authToken){
+    return(
+      <Auth />
+    )
+  }
   return (
-    <Router>
-      <Navbar/>
-      <Route path="/" exact>
-        <Join />
-      </Route>
-      <Route path="/chat" component={ChatArea} />
-    </Router>
+    <ChatArea />
   )
 }
 

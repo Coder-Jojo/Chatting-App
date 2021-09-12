@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { ListItem, Divider, ListItemText, ListItemAvatar, Avatar, IconButton} from '@material-ui/core'
-import end from './end'
-import axios from 'axios'
 import DeleteIcon from '@material-ui/icons/Delete';
+import {axios} from './'
 
 
 
@@ -19,7 +18,7 @@ const Chat = ({conversations, currentUser, setConversations, convos}) => {
                 else{
                     const friendId = conversations? conversations?.members?.find((m) => m !== currentUser._id) : null
                     if(friendId){
-                        const res = await axios.get(end + '/user/find/' + friendId)
+                        const res = await axios.get('/user/find/' + friendId)
                         setUser(res.data)
                     }
                 }
@@ -37,7 +36,7 @@ const Chat = ({conversations, currentUser, setConversations, convos}) => {
     const handleDelete = async () => {
         try{
             console.log(convos)
-            await axios.delete(end + '/conversations/' + conversations._id)
+            await axios.delete('/conversations/' + conversations._id)
             setConversations(convos.filter(c => c._id !== conversations._id))
             //             console.log(convos)
             // console.log(resp)
