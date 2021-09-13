@@ -24,7 +24,7 @@ const authenticateToken = (request, response, next) => {
         }
       });
     }
-  };
+};
 
 router.post("/signup", async (req, res) => {
     const { username, name, password, email } = req.body;

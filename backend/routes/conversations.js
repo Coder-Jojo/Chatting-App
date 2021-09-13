@@ -36,13 +36,11 @@ router.get('/find/:user1/:user2', async (req, res) => {
                 members: [req.params.user1, req.params.user2]
             })
             const savedConversation = await newConversation.save()
-            // console.log(savedConversation)
             res.json(savedConversation)
         }
         else{
             res.json(conversation)
         }
-        // console.log('worked')
     }
     catch(err){
         console.log(err)

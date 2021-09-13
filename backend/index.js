@@ -23,6 +23,9 @@ mongoose.connect(
 app.use(express.json());
 app.use(cors());
 
+app.use('/', (req, res) =>{
+  res.send('server is running!!!!!')
+})
 
 app.use('/api/auth', auth)
 app.use(require('./routes/auth').authenticateToken)
@@ -30,12 +33,8 @@ app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use('/api/user', users)
 
-
-app.use('/', (req, res) =>{
-    res.send('server is running!!!!!')
-})
-
 const PORT = process.env.PORT || 5000
+
 corsOptions={
   cors: true,
   origins:["http://localhost:3000"],
@@ -56,8 +55,6 @@ const removeUser = (socketId) => {
 }
 
 const getUser = (userId) => {
-  // console.log(userArr)
-
   return userArr.find(user => user.userId === userId)
 }
 
@@ -65,10 +62,8 @@ io.on('connect', (socket) => {
   console.log('a user has connected')
 
   socket.on('addUser', (userId) => {
-      // console.log(userId, 'has connected')
       userId && addUser(userId, socket.id)
       io.emit('getUsers', userArr)
-      // console.log(userArr)
   })
 
   socket.on('sendMessage', ({senderId, receiverId, text}) => {
