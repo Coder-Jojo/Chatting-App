@@ -1,17 +1,17 @@
-import React from 'react'
-import {Box} from '@material-ui/core'
-import { MessageLeft, MessageRight } from './'
+import React from "react";
+import { Box } from "@material-ui/core";
+import { MessageLeft, MessageRight } from "./";
 
-const Messages = ({message, own}) => {
-    return (
-        <Box>
-            {
-                own?<MessageRight message={message} /> : <MessageLeft message={message} />
-                
-            }
-            
-        </Box>
-    )
-}
+const Messages = ({ message, own }) => {
+  return (
+    <Box>
+      {own ? (
+        <MessageRight message={message} />
+      ) : (
+        <MessageLeft message={message} />
+      )}
+    </Box>
+  );
+};
 
-export default Messages
+export default Messages;

@@ -1,22 +1,17 @@
-import React from 'react'
-import {ChatArea, Auth} from './components'
+import React from "react";
+import { ChatArea, Auth } from "./components";
 
-import Cookies from 'universal-cookie'
+import Cookies from "universal-cookie";
 
-const cookies = new Cookies()
+const cookies = new Cookies();
 
-const authToken = cookies?.get('token')
+const authToken = cookies?.get("token");
 
 const App = () => {
-
-  if(!authToken){
-    return(
-      <Auth />
-    )
+  if (!authToken) {
+    return <Auth />;
   }
-  return (
-    <ChatArea />
-  )
-}
+  return <ChatArea />;
+};
 
-export default App
+export default App;
