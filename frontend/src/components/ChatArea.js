@@ -16,8 +16,8 @@ const ChatArea = ({location}) => {
     const [onlineUsers, setOnlineUsers] = useState([])
     // const [socket, setSocket] = useState(null)
 
-    const endpoint = 'http://localhost:5000'
-    // const endpoint = 'https://jojo-chatting.herokuapp.com'
+    // const endpoint = 'http://localhost:5000'
+    const endpoint = 'https://jojo-chat-app.herokuapp.com'
 
     useEffect(() => {
 

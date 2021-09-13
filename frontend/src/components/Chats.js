@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {TextField, Link, Tooltip, Fab} from '@material-ui/core'
+import {TextField, Link, Tooltip, Fab, CircularProgress} from '@material-ui/core'
 import {Autocomplete} from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -24,8 +24,11 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
     const [user, setUser] = useState({})
     const [allUsers, setAllUsers] = useState([])
     const [findChat, setFindChat] = useState('')
+    const [loading, setLoading] = useState(true)
 
     useEffect(() =>{
+        setLoading(true)
+
         const getConversations = async () => {
             try {
                 const res = await axios.get('/conversations/' + user._id)
@@ -61,6 +64,8 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
         getConversations();
 
         getAllUsers();
+
+        setLoading(false)
 
     }, [user._id, userName])
 
@@ -111,8 +116,8 @@ const Chats = ({userName, currentChat, setCurrentChat}) => {
                     )}
                     className=" mt-3"
                 />
-            
-                {conversations.length? 
+                
+                {loading? (<CircularProgress />) : conversations.length? 
                     conversations.map((c, i) => {
                         return(
                             <Link key={i} onClick={()=> setCurrentChat(c)} className={classes.root}>
