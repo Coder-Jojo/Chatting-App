@@ -37,7 +37,7 @@ const PORT = process.env.PORT || 5000;
 
 corsOptions = {
   cors: true,
-  origins: ["http://localhost:3000"],
+  origins: "*",
 };
 
 const server = http.createServer(app);

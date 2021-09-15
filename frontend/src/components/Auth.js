@@ -54,6 +54,7 @@ export default function SignUp() {
   const [find, setFind] = useState(false);
   const [valid, setValid] = useState(0);
   const [severity, setSeverity] = useState("warning");
+  const [loading, setLoading] = useState(false);
 
   const handleAuth = (e) => {
     e.preventDefault();
@@ -63,6 +64,7 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (signIn) {
       if (username === "" || password === "") {
@@ -87,11 +89,9 @@ export default function SignUp() {
       if (name === "" || username === "" || email === "" || password === "") {
         setMessage("Please fill all the fields!");
         setOpen(true);
-        return;
       } else if (valid !== 1) {
         setOpen(true);
         setMessage("Username already taken!!!");
-        return;
       } else {
         try {
           const resp = await axios.post("/auth/signup", {
@@ -115,6 +115,7 @@ export default function SignUp() {
         setPassword("");
       }
     }
+    setLoading(false);
   };
 
   const handleUsername = async (e) => {
@@ -259,6 +260,9 @@ export default function SignUp() {
             </Grid>
           </Grid>
         </form>
+      </div>
+      <div className="d-flex justify-content-center mt-4">
+        {loading && <CircularProgress />}
       </div>
     </Container>
   );
