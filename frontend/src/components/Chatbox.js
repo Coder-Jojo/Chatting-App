@@ -43,6 +43,7 @@ const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    if (newMessage === "") return;
 
     const message = {
       sender: user._id,
@@ -118,7 +119,7 @@ const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
               variant="h4"
               className="text-center font-weight-bold text-light p-2 "
             >
-              {chatName ? chatName.toUpperCase() : "CHAT"}
+              {chatName && currentChat ? chatName.toUpperCase() : "CHAT"}
             </Typography>
           </div>
 
@@ -165,9 +166,9 @@ const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
                 setNewMessage(e.target.value);
               }}
               value={newMessage}
-              onKeyPress={(event) =>
-                event.key === "Enter" ? handleClick : null
-              }
+              onKeyPress={(e) => {
+                e.key === "Enter" && handleClick(e);
+              }}
             />
           </div>
         ) : null}

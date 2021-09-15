@@ -32,15 +32,15 @@ const Chats = ({ userName, currentChat, setCurrentChat }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-
     const getConversations = async () => {
+      setLoading(true);
       try {
         const res = await axios.get("/conversations/" + user._id);
         setConversations(res.data);
       } catch (err) {
         console.error(err);
       }
+      setLoading(false);
     };
 
     const getUser = async () => {
@@ -64,7 +64,6 @@ const Chats = ({ userName, currentChat, setCurrentChat }) => {
     getUser();
     getConversations();
     getAllUsers();
-    setLoading(false);
   }, [user._id, userName]);
 
   const AddNewConversation = async (userName) => {
@@ -121,27 +120,28 @@ const Chats = ({ userName, currentChat, setCurrentChat }) => {
         )}
         className=" mt-3"
       />
-
-      {loading ? (
-        <CircularProgress />
-      ) : conversations.length ? (
-        conversations.map((c, i) => {
-          return (
-            <Link
-              key={i}
-              onClick={() => setCurrentChat(c)}
-              className={classes.root}
-            >
-              <Chat
-                conversations={c}
-                currentUser={user}
-                setConversations={setConversations}
-                convos={conversations}
-              />
-            </Link>
-          );
-        })
-      ) : null}
+      <div className="mt-3 d-flex justify-content-center">
+        <div>{loading && <CircularProgress />}</div>
+      </div>
+      {conversations.length
+        ? conversations.map((c, i) => {
+            return (
+              <Link
+                key={i}
+                onClick={() => setCurrentChat(c)}
+                className={classes.root}
+              >
+                <Chat
+                  conversations={c}
+                  currentUser={user}
+                  setConversations={setConversations}
+                  convos={conversations}
+                  setCurrentChat={setCurrentChat}
+                />
+              </Link>
+            );
+          })
+        : null}
 
       <Chat />
     </div>

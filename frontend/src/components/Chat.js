@@ -10,7 +10,13 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "./";
 
-const Chat = ({ conversations, currentUser, setConversations, convos }) => {
+const Chat = ({
+  conversations,
+  currentUser,
+  setConversations,
+  convos,
+  setCurrentChat,
+}) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -40,6 +46,7 @@ const Chat = ({ conversations, currentUser, setConversations, convos }) => {
       console.log(convos);
       await axios.delete("/conversations/" + conversations._id);
       setConversations(convos.filter((c) => c._id !== conversations._id));
+      setCurrentChat(null);
     } catch (err) {
       console.log(err);
     }
