@@ -102,8 +102,8 @@ const ChatArea = () => {
   };
 
   const Mobile = () => {
-    return (
-      <>
+    const buttonGroups = () => {
+      return (
         <ButtonGroup
           variant="outlined"
           aria-label="outlined button group"
@@ -125,8 +125,14 @@ const ChatArea = () => {
             <ExitToAppIcon fontSize="large" />
           </Button>
         </ButtonGroup>
+      );
+    };
+
+    return (
+      <>
         <Switch>
           <Route path="/" exact>
+            {buttonGroups()}
             <Chats
               userName={user}
               currentChat={currentChat}
@@ -134,6 +140,7 @@ const ChatArea = () => {
             />
           </Route>
           <Route path="/online" exact>
+            {buttonGroups()}
             <Online
               onlineUsers={onlineUsers}
               currentUserId={me._id}
