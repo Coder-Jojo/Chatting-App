@@ -17,7 +17,7 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
+const Chatbox = ({ currentChat, setCurrentChat, user, socket, mobileView }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [chatName, setChatName] = useState("");
@@ -25,7 +25,6 @@ const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
     e.preventDefault();
     cookies.remove("token");
     cookies.remove("username");
-    window.location.href = "/";
     window.location.reload();
   };
 
@@ -124,15 +123,17 @@ const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
             </Typography>
           </div>
 
-          <Button onClick={handleLogout} className="d-flex">
-            <Typography
-              variant="h5"
-              className="text-center font-weight-bold text-light p-2 "
-            >
-              Log out
-            </Typography>
-            <ExitToAppIcon fontSize="large" />
-          </Button>
+          {mobileView || (
+            <Button onClick={handleLogout} className="d-flex">
+              <Typography
+                variant="h5"
+                className="text-center font-weight-bold text-light p-2 "
+              >
+                Log out
+              </Typography>
+              <ExitToAppIcon fontSize="large" />
+            </Button>
+          )}
         </Paper>
 
         <ScrollToBottom initialScrollBehavior="smooth" className="msg">

@@ -16,6 +16,7 @@ const ChatArea = () => {
   const [me, setMe] = useState({});
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [mobileView, setMobileView] = useState(false);
+  const [showChats, setShowChats] = useState(true);
   const endpoint = "https://jojo-chat-app.herokuapp.com";
 
   useEffect(() => {
@@ -87,6 +88,7 @@ const ChatArea = () => {
               setCurrentChat={setCurrentChat}
               user={me}
               socket={socket}
+              mobileView={mobileView}
             />
           </Grid>
           <Grid item sm={3}>
@@ -109,14 +111,11 @@ const ChatArea = () => {
           aria-label="outlined button group"
           fullWidth="true"
         >
-          <Button fullWidth="true" onClick={() => (window.location.href = "/")}>
+          <Button fullWidth="true" onClick={() => setShowChats(true)}>
             Messages
           </Button>
 
-          <Button
-            fullWidth="true"
-            onClick={() => (window.location.href = "/online")}
-          >
+          <Button fullWidth="true" onClick={() => setShowChats(false)}>
             Online
           </Button>
 
@@ -133,19 +132,19 @@ const ChatArea = () => {
         <Switch>
           <Route path="/" exact>
             {buttonGroups()}
-            <Chats
-              userName={user}
-              currentChat={currentChat}
-              setCurrentChat={setCurrentChat}
-            />
-          </Route>
-          <Route path="/online" exact>
-            {buttonGroups()}
-            <Online
-              onlineUsers={onlineUsers}
-              currentUserId={me._id}
-              setCurrentChat={setCurrentChat}
-            />
+            {showChats ? (
+              <Chats
+                userName={user}
+                currentChat={currentChat}
+                setCurrentChat={setCurrentChat}
+              />
+            ) : (
+              <Online
+                onlineUsers={onlineUsers}
+                currentUserId={me._id}
+                setCurrentChat={setCurrentChat}
+              />
+            )}
           </Route>
           <Route path="/chatbox" exact>
             <Chatbox
@@ -154,6 +153,7 @@ const ChatArea = () => {
               setCurrentChat={setCurrentChat}
               user={me}
               socket={socket}
+              mobileView={mobileView}
             />
           </Route>
         </Switch>
