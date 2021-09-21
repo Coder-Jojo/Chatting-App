@@ -59,7 +59,7 @@ const Chat = ({
           <ListItemAvatar>
             <Avatar alt="Remy Sharp" src={image} />
           </ListItemAvatar>
-          <ListItemText primary={name} />
+          <ListItemText primary={name} className="text-dark" />
           <IconButton aria-label="delete" onClick={() => handleDelete()}>
             <DeleteIcon />
           </IconButton>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   TextField,
-  Link,
+  // Link,
   Tooltip,
   Fab,
   CircularProgress,
@@ -10,6 +10,7 @@ import { Autocomplete } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import { Chat, axios } from "./";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -127,8 +128,13 @@ const Chats = ({ userName, currentChat, setCurrentChat }) => {
         ? conversations.map((c, i) => {
             return (
               <Link
+                to="/chatbox"
                 key={i}
                 onClick={() => setCurrentChat(c)}
+                // onClick={() => {
+                //   console.log("worded");
+                //   setCurrentChat(c);
+                // }}
                 className={classes.root}
               >
                 <Chat
