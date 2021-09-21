@@ -25,6 +25,7 @@ const Chatbox = ({ currentChat, setCurrentChat, user, socket }) => {
     e.preventDefault();
     cookies.remove("token");
     cookies.remove("username");
+    window.location.href = "/";
     window.location.reload();
   };
 
